@@ -1,0 +1,10 @@
+CREATE TABLE Lottery(
+	Id INT IDENTITY(1,1),
+	PayNumber INT NOT NULL,
+	TicketPrice INT NOT NULL,
+	TotalTickets INT NOT NULL,
+	StartDate DATE NOT NULL,
+	OwnerId INT NOT NULL,
+	CONSTRAINT PK_Lottery PRIMARY KEY (Id),
+	CONSTRAINT FK_Lottery__User FOREIGN KEY (OwnerId) REFERENCES [User](Id)
+)

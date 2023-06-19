@@ -1,0 +1,77 @@
+﻿@page "/createlottery"
+@using Client.Services;
+@using Common.Models
+@inject Common.Models.LotteryModel lottery
+@inject NavigationManager navigation
+@inject ILotteryService lotteryService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+<h3>Nytt vinlotteri</h3>
+
+<EditForm Model="@lottery" OnValidSubmit="Createlottery">
+    <div class="mb-3">
+        <label class="form-label">Vipps mobilnummer</label>
+        <InputNumber id="payNumber" @bind-Value="lottery.PayNumber" class="form-control" placeholder="Vipps til" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Pris pr. lodd</label>
+        <InputNumber id="price" @bind-Value="lottery.TicketPrice" class="form-control" placeholder="Pris pr. lodd" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Antall lodd</label>
+        <InputNumber id="amount" @bind-Value="lottery.TotalTickets" class="form-control" placeholder="Antall lodd" />
+    </div>
+    <div class="input-group mb-3 prize">
+        <label class="form-label">Premier</label>
+        <span @onclick="AddPrice" class="input-group-text">+</span>
+        <span @onclick="RemovePrice" class="input-group-text">-</span>
+    </div>
+    @foreach(var prize in lottery.Prizes)
+    {
+        var i = 0;
+        <div class="input-group mb-3 prize">
+            <span>Premie #@(i+1)</span>
+            <InputText id="PriceName" @bind-Value="prize.Name" class="form-control" placeholder="Navn" />
+            <InputNumber id="PricePrice" @bind-Value="prize.Price" class="form-control" placeholder="Pris" />
+        </div>
+        i++;
+    }
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Start dato</label>
+        <InputDate id="datefrom" class="form-control" @bind-Value="lottery.StartDate" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Opprett</button>
+    <button type="button" @onclick="GoBack" class="btn btn-secondary">Avbryt</button>
+</EditForm>
+
+@code {
+    List<LotteryPrizeModel> list = new List<LotteryPrizeModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        lottery.Prizes = new List<LotteryPrizeModel>();
+        lottery.OwnerId = await localStorage.GetItemAsync<int>("UserId");
+    }
+
+    void AddPrice()
+    {
+        lottery.Prizes.Add(new LotteryPrizeModel());
+    }
+
+    void RemovePrice()
+    {
+        lottery.Prizes.RemoveAt(lottery.Prizes.Count - 1);
+    }
+
+    async Task Createlottery()
+    {
+        var lotteryId = await lotteryService.CreateLottery(lottery);
+        navigation.NavigateTo($"Lottery/{lotteryId}");
+    }
+    void GoBack()
+    {
+        navigation.NavigateTo("/");
+    }
+
+    
+}

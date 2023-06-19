@@ -1,0 +1,73 @@
+﻿@page "/"
+@using Client.Services;
+@inject Common.Models.UserModel userModel
+@inject NavigationManager navigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ILotteryService lotteryService
+
+
+<PageTitle>Index</PageTitle>
+
+@*<button type="button" class="btn btn-primary">Clikk</button>*@
+@*<div class="cards">
+    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Opprett nytt vinlotteri</h5>
+            
+        </div>
+    </div>
+    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Bli med på vinlotteri</h5>
+        </div>
+    </div>
+</div>*@
+@if (isNameSet)
+{
+    <div class="buttons">
+        <button @onclick='() => Navigate("CreateLottery")' class="btn btn-secondary">Opprett nytt vinlotteri</button>
+        <button @onclick='() => Navigate("Lotteries")' class="btn btn-secondary">Bli med  på vinlotteri</button>
+    </div>
+}
+else
+{
+    <EditForm Model="@userModel" OnValidSubmit="CreateUser">
+        <div class="mb-3">
+            <label class="form-label">Ditt navn</label>
+            <InputText id="userName" @bind-Value="userModel.Name" class="form-control" placeholder="Navn" />
+        </div>
+        <button type="submit" class="btn btn-primary">Opprett</button>
+    </EditForm>
+}
+
+
+@code{
+    bool isNameSet = false;
+
+    protected override void OnInitialized()
+    {
+
+        base.OnInitialized();
+    }
+
+    void Navigate(string path)
+    {
+        navigationManager.NavigateTo(path);
+    }
+
+    async Task CreateUser()
+    {
+        var userId = await lotteryService.CreateUser(userModel.Name);
+        await localStorage.SetItemAsync("UserId", userId);
+        isNameSet = true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var userId = await localStorage.GetItemAsync<string>("UserId");
+        if (!string.IsNullOrEmpty(userId))
+        {
+            isNameSet = true;
+        }
+    }
+}

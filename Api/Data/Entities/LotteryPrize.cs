@@ -1,0 +1,9 @@
+﻿namespace Api.Data.Entities
+{
+    public class LotteryPrize
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int? Price { get; set; }
+    }
+}

@@ -1,0 +1,53 @@
+﻿@page "/Lottery/{Id:int?}"
+@using Client.Services;
+@inject Common.Models.LotteryModel lottery
+@inject ILotteryService lotteryService
+
+<div class="lottery-wrapper">
+    <h3>Lotteri - 17.05.2023</h3>
+    <div class="lottery-content">
+        <div class="lottery-item">
+            <div class="lottery-label">
+                Vipps nummer
+            </div>
+            <div class="lottery-value">
+                @lottery.PayNumber
+            </div>
+        </div>
+        <div class="lottery-item">
+            <div class="lottery-label">
+                Pris pr. lodd
+            </div>
+            <div class="lottery-value">
+                @lottery.TicketPrice kr
+            </div>
+        </div>
+        <div class="lottery-item">
+            <div class="lottery-label">
+                Antall lodd
+            </div>
+            <div class="lottery-value">
+                @lottery.TotalTickets
+            </div>
+        </div>
+        <div class="lottery-item">
+            <div class="lottery-label">
+                Loddtrekning starter
+            </div>
+            <div class="lottery-value">
+                @lottery.StartDate
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        lottery = await lotteryService.GetLottery(Id);
+    }
+}
