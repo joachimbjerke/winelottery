@@ -1,5 +1,0 @@
-CREATE TABLE [User](
-	Id INT IDENTITY(1,1),
-	[Name] nvarchar(200) NOT NULL,
-	CONSTRAINT PK_User PRIMARY KEY (Id)
-)
