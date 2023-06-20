@@ -1,0 +1,12 @@
+C:\projects\playground\WineLottery\Shared\bin\Release\net7.0\Common.deps.json
+C:\projects\playground\WineLottery\Shared\bin\Release\net7.0\Common.dll
+C:\projects\playground\WineLottery\Shared\bin\Release\net7.0\Common.pdb
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.csproj.AssemblyReference.cache
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.AssemblyInfoInputs.cache
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.AssemblyInfo.cs
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.csproj.CoreCompileInputs.cache
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.dll
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\refint\Common.dll
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\Common.pdb
+C:\projects\playground\WineLottery\Shared\obj\Release\net7.0\ref\Common.dll

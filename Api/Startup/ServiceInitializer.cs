@@ -21,6 +21,7 @@ namespace Api.Startup
                     policy =>
                     {
                         policy.WithOrigins("https://localhost:7071");
+                        policy.WithOrigins("https://winelottery-blazor.azurewebsites.net");
                         policy.AllowAnyHeader().AllowAnyMethod();
 
                     });
